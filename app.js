@@ -77,19 +77,18 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 app.patch("/user/:id", authorize("user"), (req, res) => {
-    const
-        form.parse(req, function (err, fields, files) {
-            if (files != null) {
-                const tempFiles = []
-                upload.array('blogFiles', 12)
-                files.blogFiles.forEach(file => {
-                    tempFiles.push({
-                        name: file.originalFilename,
-                        location: path.join(__dirname + "/uploads") + file.originalFilename
-                    })
+    form.parse(req, function (err, fields, files) {
+        if (files != null) {
+            const tempFiles = []
+            upload.array('blogFiles', 12)
+            files.blogFiles.forEach(file => {
+                tempFiles.push({
+                    name: file.originalFilename,
+                    location: path.join(__dirname + "/uploads") + file.originalFilename
                 })
+            })
 
-            }
-            User.findByIdAndUpdate()
-        });
+        }
+        User.findByIdAndUpdate()
+    });
 })
